@@ -1,6 +1,6 @@
 /*
  ============================================================================
- Name        : hi.c
+ Name        : Diffie Hellman.c
  Author      : YousraMzouz
  Version     :
  Copyright   : Your copyright notice
