@@ -17,7 +17,7 @@
 #include <time.h>  //on appel cette bibliothèque car on doit utiliser rand();
 
 //Fonction simple qui calcule a^b % mod  ( on va voir ce calcul avec d'autres méthodes prochainement qui impliqueet la prgram dynamique )
-unsigned long int EXP_NAIVE(unsigned long int a,unsigned long int b,unsigned long int mod) //on utilise long long car les nbres peuvent etre très grands
+unsigned long long int EXP_NAIVE(unsigned long long int a,unsigned long long int b,unsigned long long int mod) //on utilise long long car les nbres peuvent etre très grands
   {
   long long int t;
   if(b==1)
@@ -54,34 +54,34 @@ unsigned long int EXP_NAIVE(unsigned long int a,unsigned long int b,unsigned lon
   }
     //imaginons que Alice et Bob voulaient communiquer de facon sécurisé un msg secret(chiffré)
   int main(){
- unsigned long int n,g, x, a, y, b, ka, kb;  //definition des variables
+ unsigned long long int n,g, x, a, y, b, ka, kb;  //definition des variables
 
   //les deux utilisateurs doivent choisir les meme n et g (public)
   printf("Entrer les valeurs choisis de n et de g :");
   fflush(stdout);
-  scanf("%lu%lu",&n,&g);
+  scanf("%llu%llu",&n,&g);
   //n doit etre un grand nbre premier
   while((premier(n))==0){
   printf("le nombre n doit etre un nombre premier , RESAISIR: \n");
   fflush(stdout);
-  scanf("%lu",&n);
+  scanf("%llu",&n);
   }
 
   //les valeurs que vous avez choisi
-    printf("The value of n : %lu\n", n);
-    printf("The value of g : %lu\n", g);
+    printf("The value of n : %llu\n", n);
+    printf("The value of g : %llu\n", g);
     fflush(stdout);
 
     // Alice choisi sa clé privé a(Il ne doit pas la communiquer à travers le reseau public alors Bob ne la connait pas
     a = rand(); // génere un nbre aleatoire
-    printf("La cle privee de Alice:%lu\n", a);
+    printf("La cle privee de Alice:%llu\n", a);
     fflush(stdout);
 
     x = EXP_NAIVE(g, a, n); // la clé générée
 
     // Bob choisi de la meme manière sa clé privé b
     b = rand();
-    printf("La cle privee de Bob: %lu\n\n", b);
+    printf("La cle privee de Bob: %llu\n\n", b);
     fflush(stdout);
 
     y = EXP_NAIVE(g, b, n); // la clé génerée
@@ -90,8 +90,8 @@ unsigned long int EXP_NAIVE(unsigned long int a,unsigned long int b,unsigned lon
     ka = EXP_NAIVE(y, a, n); // clé secrete de Alice
     kb = EXP_NAIVE(x, b, n); // clé secrete de Bob
 
-    printf("Secret key for the Alice is : %lu\n", ka);
-    printf("Secret Key for the Bob is : %lu\n", kb);
+    printf("Secret key for the Alice is : %llu\n", ka);
+    printf("Secret Key for the Bob is : %llu\n", kb);
     //c'est le nbre que Alice et bob doivent utiliser pour chiffrer et déchiffrer leurs messages sans avoir l'obligation
     //de le partager sur le reseau public (qui peut etre un canal non securisé)ce qui élimine les possibilités de décrypter leurs msgs par qqn malveillant
 
