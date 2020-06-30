@@ -1,8 +1,7 @@
 /*
  ============================================================================
- Name        : AlgGamal.c
- Author      : 
- Version     :
+ Name        : AlgGamal.cuthor      
+ Version     :IKBANE Imane
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
  ============================================================================
@@ -11,31 +10,28 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+unsigned long long int Secondaire(unsigned long long int t,unsigned long long int k,unsigned long long  int* q,unsigned long long int* p)//on utilise long long car les nbres peuvent etre très grands
+{//on utilise des pointeurs pour pour agir sur la valeur de la variable on mémoire
+	if (t == 1)
+		*q = (*q * (*p)) % k;
 
-//Fonction simple qui calcule a^b % mod  ( on va voir ce calcul avec d'autres méthodes prochainement qui impliqueet la prgram dynamique )
-long long int EXP_NAIVE(long long int a,long long int b,long long int mod) //on utilise long long car les nbres peuvent etre très grands
-  {
-  long long int t;
-  if(b==1)
-  return a;
-  if(b%2==0)       // si l'exposant est paire
-  {
+	*p = (*p) * (*p) % k; 
+}
 
-  t=EXP_NAIVE(a,b/2,mod);   // appel récurssif de la fonction qu'on va étudier sa compléxité plus tard
-  return ((t*t)%mod);
-  }
+unsigned long long int EXP_RAPIDE(unsigned long long int x,unsigned long long int y, unsigned long long int mod)
+{
+    unsigned long long int var,resultat = 1;//la variable resultat ou on stocke le calcul
+    
 
-  else          //si l'exposant est impaire on prend un exemple :
+	while (y > 0)//tant que l'expossant est strictement possitif on refait le calcul
+	{
+		var = y % 2;  //var est une variable locale temporaire
+		Secondaire(var, mod, &resultat, &x);//Appel de la fct précedamant définie
+		y = y / 2;
+	}
 
-  {
-  t=EXP_NAIVE(a,b-1,mod);
-  return (((a%mod)*t)%mod );
-  }
-
-  /*   Exemple Clarifiant :
-   5^3 % 2 = ( 5%2 * 5^2%2 ) % 2 = ( 1 * ((5^1%2 * 5^1%2))%2 ) % 2 = ( 1 * (1 * 1)% 2 ) % 2 = (1 *1)% 2 = 1
-  */
-  }
+	return resultat;
+}
 //fonction qui detecte si un nbre est premier ou pas
 long long int premier (long long int n){
 	int count=1,i;
@@ -61,10 +57,10 @@ long long int PrimitiveRoot(long long int p)
 	{
 		flag = 1;
 		for (int i = 1; i < p; i++) {
-			if (EXP_NAIVE(a, i, p) == 1 && i < p - 1) {
+			if (EXP_RAPIDE(a, i, p) == 1 && i < p - 1) {
 				flag = 0;
 			}
-			else if (flag && EXP_NAIVE(a, i, p) == 1 && i == p - 1) {
+			else if (flag && EXP_RAPIDE(a, i, p) == 1 && i == p - 1) {
 				return a;
 			}
 		}
@@ -113,25 +109,25 @@ int main(){
 	    g=PrimitiveRoot(p);
 	    kp=rand_interval(p-2);
 	    // clé privée de Bob
-	    kb=EXP_NAIVE(g, kp, p); // clé publique de Bob
+	    kb=EXP_RAPIDE(g, kp, p); // clé publique de Bob
 	    i=rand_interval(p-2);
 
-	    ke=EXP_NAIVE(g, i, p);// clé temporaire d'Allice
-	    kma=EXP_NAIVE(kb, i, p);// clé de masque d'Allice
+	    ke=EXP_RAPIDE(g, i, p);// clé temporaire d'Allice
+	    kma=EXP_RAPIDE(kb, i, p);// clé de masque d'Allice
 	    printf("Le message kma est: %lld\n",kma);
 	    // chiffrement de message
-	    y=1698888999999*EXP_NAIVE(kb, i, p);
+	    y=1698888999999*EXP_RAPIDE(kb, i, p);
 	    printf("Le message crypté est: %lld\n",y );
 	    // dechifrement
-	    kmb=EXP_NAIVE(ke, kp, p);
+	    kmb=EXP_RAPIDE(ke, kp, p);
 	    printf("Le message kmb est: %lld\n",kmb );
-	    x=y/EXP_NAIVE(ke, kp, p);
+	    x=y/EXP_RAPIDE(ke, kp, p);
 	    printf("Le message decrypté est: %lld\n",x );
     	long long int a,b,mod,t;
 	    printf("saisir a,b,mod:");
 	    fflush(stdout);
 	    scanf("%lld %lld %lld",&a,&b,&mod);
-	    t=EXP_NAIVE(a,b,mod);
+	    t=EXP_RAPIDE(a,b,mod);
 	    fflush(stdout);
 	    printf("le résultat est:%lld",t);
 	    fflush(stdout);
