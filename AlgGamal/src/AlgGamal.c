@@ -74,7 +74,6 @@ long long int rand_interval(long long int max)
   const  long int buckets = RAND_MAX / range;
   const  long int limit = buckets * range;
 
- //Créez des seaux de taille égale, d'affilée, puis tirez au hasard vers les seaux jusqu'à ce que vous atterrissiez dans l'un d'eux. Tous les seaux sont également  probable. Si vous atterrissez au bout de la ligne de godets, réessayez.
   do
   {
       r = rand();
