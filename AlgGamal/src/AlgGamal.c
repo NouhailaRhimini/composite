@@ -74,9 +74,7 @@ long long int rand_interval(long long int max)
   const  long int buckets = RAND_MAX / range;
   const  long int limit = buckets * range;
 
-  /* Create equal size buckets all in a row, then fire randomly towards
-   * the buckets until you land in one of them. All buckets are equally
-   * likely. If you land off the end of the line of buckets, try again. */
+ //Créez des seaux de taille égale, d'affilée, puis tirez au hasard vers les seaux jusqu'à ce que vous atterrissiez dans l'un d'eux. Tous les seaux sont également  probable. Si vous atterrissez au bout de la ligne de godets, réessayez.
   do
   {
       r = rand();
@@ -116,7 +114,12 @@ int main(){
 	    kma=EXP_RAPIDE(kb, i, p);// clé de masque d'Allice
 	    printf("Le message kma est: %lld\n",kma);
 	    // chiffrement de message
-	    y=1698888999999*EXP_RAPIDE(kb, i, p);
+	    long long int msg;
+	    do{printf("Entrer votre message(le message ne doit pas dépasser la valeur 1698888999999:");
+	    scanf("%llu",&msg);
+	    }
+	    while(msg>=1698888999999);
+	    y=msg*EXP_RAPIDE(kb, i, p);
 	    printf("Le message crypté est: %lld\n",y );
 	    // dechifrement
 	    kmb=EXP_RAPIDE(ke, kp, p);
