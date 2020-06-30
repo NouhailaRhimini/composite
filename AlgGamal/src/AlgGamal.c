@@ -111,7 +111,7 @@ int main(){
 
 	    ke=EXP_RAPIDE(g, i, p);// clé temporaire d'Allice
 	    kma=EXP_RAPIDE(kb, i, p);// clé de masque d'Allice
-	    printf("Le message kma est: %lld\n",kma);
+	    printf("La clé kma est: %lld\n",kma);
 	    // chiffrement de message
 	    long long int msg;
 	    do{printf("Entrer votre message(le message ne doit pas dépasser la valeur 1698888999999:");
@@ -122,7 +122,7 @@ int main(){
 	    printf("Le message crypté est: %lld\n",y );
 	    // dechifrement
 	    kmb=EXP_RAPIDE(ke, kp, p);
-	    printf("Le message kmb est: %lld\n",kmb );
+	    printf("La clé kmb est: %lld\n",kmb );
 	    x=y/EXP_RAPIDE(ke, kp, p);
 	    printf("Le message decrypté est: %lld\n",x );
 	    return 0;
