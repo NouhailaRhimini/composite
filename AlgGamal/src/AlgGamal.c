@@ -125,13 +125,5 @@ int main(){
 	    printf("Le message kmb est: %lld\n",kmb );
 	    x=y/EXP_RAPIDE(ke, kp, p);
 	    printf("Le message decrypté est: %lld\n",x );
-    	long long int a,b,mod,t;
-	    printf("saisir a,b,mod:");
-	    fflush(stdout);
-	    scanf("%lld %lld %lld",&a,&b,&mod);
-	    t=EXP_RAPIDE(a,b,mod);
-	    fflush(stdout);
-	    printf("le résultat est:%lld",t);
-	    fflush(stdout);
 	    return 0;
 }
