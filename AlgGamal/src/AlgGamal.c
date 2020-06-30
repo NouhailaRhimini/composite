@@ -1,8 +1,7 @@
 /*
  ============================================================================
- Name        : AlgGamal.c
- Author      : 
- Version     :
+ Name        : AlgGamal.cuthor      
+ Version     :IKBANE Imane
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
  ============================================================================
