@@ -4,30 +4,28 @@
 #include<math.h> 
 #include <time.h> 
 
-//Fonction simple qui calcule a^b % mod  ( on va voir ce calcul avec d'autres méthodes prochainement qui impliqueet la programation dynamique )
-unsigned long long int EXP_NAIVE(unsigned long long int a,unsigned long long int b,unsigned long long int mod) //on utilise long long car les nbres peuvent etre très grands
-  {
-  unsigned long long int t;
-  if(b==1)
-  return a;
-  if(b%2==0)       // si l'exposant est paire
-  {
-  
-  t=EXP_NAIVE(a,b/2,mod);   // appel récurssif de la fonction qu'on va étudier sa compléxité plus tard
-  return (((t%mod)*(t%mod))%mod);
-  }
-   
-  else          //si l'exposant est impaire on prend un exemple : 
-    
-  {
-  t=EXP_NAIVE(a,b-1,mod);
-  return ((((a%mod)%mod)*(t%mod))%mod );
-  }
+unsigned long long int Secondaire(unsigned long long int t,unsigned long long int k,unsigned long long  int* q,unsigned long long int* p)//on utilise long long car les nbres peuvent etre très grands
+{//on utilise des pointeurs pour pour agir sur la valeur de la variable on mémoire
+	if (t == 1)
+		*q = (*q * (*p)) % k;
 
-  /*   Exemple Clarifiant :
-   5^3 % 2 = ( 5%2 * 5^2%2 ) % 2 = ( 1 * ((5^1%2 * 5^1%2))%2 ) % 2 = ( 1 * (1 * 1)% 2 ) % 2 = (1 *1)% 2 = 1
-  */
-  }
+	*p = (*p) * (*p) % k; 
+}
+
+unsigned long long int EXP_RAPIDE(unsigned long long int x,unsigned long long int y, unsigned long long int mod)
+{
+    unsigned long long int var,resultat = 1;//la variable resultat ou on stocke le calcul
+    
+
+	while (y > 0)//tant que l'expossant est strictement possitif on refait le calcul
+	{
+		var = y % 2;  //var est une variable locale temporaire
+		Secondaire(var, mod, &resultat, &x);//Appel de la fct précedamant définie
+		y = y / 2;
+	}
+
+	return resultat;
+}
 // une fonction qui retourne le nombre de bits d'un nombre 
 unsigned countBits(unsigned long long  int number) 
 {        
@@ -104,11 +102,11 @@ unsigned long long int lcm(unsigned long long int n1,unsigned long long int n2){
   printf("les deux nombres be peuvent as etre égaux ,RESAISIR :\n "); 
   scanf("%llu,%llu",&p,&q);
   }
-  while(p>34679){		 
+  while(p>34680){		 
   printf("le nombre p ne doit pas dépasser 34679 , RESAISIR: \n");
   scanf("%llu",&p);
   }
-  while(q>34679){		 
+  while(q>34680){		 
   printf("le nombre q ne doit pas dépasser 34679 , RESAISIR: \n");
   scanf("%llu",&q);
   }
@@ -133,16 +131,16 @@ unsigned long long int lcm(unsigned long long int n1,unsigned long long int n2){
   
   d = modInverse(e,phi);
   // Le nombres de bits du message a sésir de doint pas depasser le nombresde bits de n  
-  do {printf("Entrer votre message (le nombre de bits du message ne doit pas dépasser le nombres de bits de n  ) : "); 
+  do {printf("Entrer votre message (le message doit etre sous forme numérique)(le nombre de bits du message ne doit pas dépasser le nombres de bits de n  ) : "); 
   scanf("%llu",&msg);
   bitsm=countBits(msg);}
   while (bitsm >= bitsn);
   printf("nombres de bits de msg  %u  ", bitsm);
   //x peut donc se calculer par la fonction d'exponentiation et la clé publique
-  x = EXP_NAIVE(msg,(unsigned int) e, n); 
+  x = EXP_RAPIDE(msg,(unsigned int) e, n); 
   printf("Le message crypté est: %llu\n", x);        
   // Bob peut décrypter son msg par sa clé privée
-  y = EXP_NAIVE(x,d, n); 
+  y = EXP_RAPIDE(x,d, n); 
   printf("Le message décrypté est: %llu\n", y);   
   
   }
