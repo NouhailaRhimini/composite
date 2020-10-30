@@ -14,9 +14,9 @@ public Dossier(long l) {
 	super();
 }
 
-public String getType() {
+public String getNom() {
 
-return "Fichier";
+return "Dossier";
 
 }
 

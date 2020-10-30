@@ -11,8 +11,8 @@ this.size = size;
 }
 
 
-public String getType() {
-return "txt";
+public String getNom() {
+return "Fichier";
 }
 
 public Long getTaille() {
