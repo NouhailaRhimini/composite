@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 class Dossier implements Element {
-ArrayList<Element> files = new ArrayList<Element>();
+ArrayList<Element> listeElts = new ArrayList<Element>();
 
 
 public Dossier(long l) {
@@ -22,7 +22,7 @@ return "Dossier";
 
 public void addFile(Element file) {
 
-files.add(file);
+listeElts.add(file);
 
 }
 
@@ -30,7 +30,7 @@ public Long getTaille() {
 
 Long size = 0L;
 
-for (Element file : files) {
+for (Element file : listeElts) {
 
 size = size + file.getTaille();
 

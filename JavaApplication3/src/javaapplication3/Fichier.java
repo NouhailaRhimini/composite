@@ -2,11 +2,11 @@
 package javaapplication3;
 
 class Fichier implements Element {
-private Long size;
+private Long taille;
 
 
-public Fichier(Long size) {
-this.size = size;
+public Fichier(Long taille) {
+this.taille = taille;
 
 }
 
@@ -16,7 +16,7 @@ return "Fichier";
 }
 
 public Long getTaille() {
-return this.size;
+return this.taille;
 }
 
 
