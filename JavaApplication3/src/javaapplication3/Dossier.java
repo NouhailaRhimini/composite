@@ -28,15 +28,15 @@ listeElts.add(file);
 
 public Long getTaille() {
 
-Long size = 0L;
+Long taille = 0L;
 
 for (Element file : listeElts) {
 
-size = size + file.getTaille();
+taille = taille + file.getTaille();
 
 }
 
-return size;
+return taille;
 
 }
 
